@@ -1,3 +1,28 @@
+.DS_Store
+
+*.bak
+*.xcodeproj
+*.xcworkspace
+*.swp
+*.sdf
+*.suo
+*.ncb
+*.sln
+*.vcproj*
+*.vcxproj*
+*.VC.opendb
+*.VC.db
+*.opensdf
+*.workspace
+*.code-workspace
+*.project
+*.tags
+*.sublime-*
+*.csproj*
+.cproject
+.settings
+.buildpath
+
 # Prerequisites
 *.d
 
@@ -30,3 +55,4 @@
 *.exe
 *.out
 *.app
+
