@@ -16,8 +16,10 @@ project "Orange"
         "Tests/**"
     }
     includedirs {
+        "include",
         "../dependencies/vstsdk/",
         "../dependencies/vstsdk/vstgui4"
+        
     }
     
     defines { 
@@ -58,11 +60,19 @@ project "Orange"
             "vstgui_support",
             "vstgui_uidescription"
         }
+        defines { 
+            "_WINDOWS",
+            "Orange_EXPORTS"
+        }
+        files {
+            "../dependencies/vstsdk/public.sdk/source/main/dllmain.cpp"
+        }
         
 
     -- Setting Debug Optins
     filter { "configurations:Debug" }
         defines { 
+            "_DEBUG",
             "DEBUG",
             "DEVELOPMENT=1"
         }
