@@ -24,6 +24,10 @@
 .buildpath
 
 build
+.vs
+
+Orange/bin
+Orange/obj
 
 # Prerequisites
 *.d
