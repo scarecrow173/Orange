@@ -23,6 +23,8 @@
 .settings
 .buildpath
 
+build
+
 # Prerequisites
 *.d
 
