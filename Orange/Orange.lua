@@ -82,6 +82,19 @@ project "Orange"
         files {
             "../dependencies/vstsdk/public.sdk/source/main/macmain.cpp"
         }
+        
+    -- Setting Windows x64 Debug Optins
+    filter { "platforms:macosx", "configurations:Debug" }
+        libdirs  {
+            "../build/mac/lib/Debug"
+        }
+    
+    -- Setting Windows x64 Release Optins
+    filter { "platforms:macosx", "configurations:Release" }
+        libdirs  {
+            "../build/mac/lib/Release"
+        }
+        
     -- Setting Debug Optins
     filter { "configurations:Debug" }
         defines { 
