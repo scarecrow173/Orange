@@ -23,7 +23,8 @@ project "Orange"
     }
     
     defines { 
-        "VSTGUI_LIVE_EDITING=1"
+        "VSTGUI_LIVE_EDITING=1",
+        "Orange_EXPORTS"
     }
 
     -- Setting Windows x86 Debug Optins
@@ -62,13 +63,25 @@ project "Orange"
         }
         defines { 
             "_WINDOWS",
-            "Orange_EXPORTS"
+
         }
         files {
             "../dependencies/vstsdk/public.sdk/source/main/dllmain.cpp"
         }
         
-
+    -- Setting Windows Platform Optins
+    filter { "platforms:macosx"}
+        links {
+            "base",
+            "sdk",
+            "pluginterfaces",
+            "vstgui",
+            "vstgui_support",
+            "vstgui_uidescription"
+        }
+        files {
+            "../dependencies/vstsdk/public.sdk/source/main/macmain.cpp"
+        }
     -- Setting Debug Optins
     filter { "configurations:Debug" }
         defines { 
