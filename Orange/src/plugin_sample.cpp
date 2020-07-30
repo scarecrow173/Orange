@@ -76,16 +76,26 @@ tresult PLUGIN_API SamplePluginEffect::process(Steinberg::Vst::ProcessData& data
 			}
 		}
 	}
+
+	if (data.numInputs == 0 || data.numOutputs == 0)
+	{
+		// nothing to do
+		return kResultOk;
+	}
+
 	Sample32* inL = data.inputs[0].channelBuffers32[0];
 	Sample32* inR = data.inputs[0].channelBuffers32[1];
 	Sample32* outL = data.outputs[0].channelBuffers32[0];
 	Sample32* outR = data.outputs[0].channelBuffers32[1];
-
-	for (int32 i = 0; i < data.numSamples; i++)
+	if (data.inputs[0].silenceFlags != 0)
 	{
-		outL[i] = inL[i];
-		outR[i] = inR[i];
+		for (int32 i = 0; i < data.numSamples; i++)
+		{
+			outL[i] = inL[i];
+			outR[i] = inR[i];
+		}
 	}
+	data.outputs[0].silenceFlags = 0;
 
 	return kResultTrue;
 }
@@ -108,7 +118,7 @@ tresult PLUGIN_API SamplePluginController::initialize(FUnknown* context)
 	tresult result = EditController::initialize(context);
 	if (result == kResultTrue)
 	{
-		parameters.addParameter(STR16("param1"), STR16("..."), 0, 1, ParameterInfo::kCanAutomate, ORANGE_SAMPLE_PLUGIN_CONTROLLER_PARAM1_TAG);
+		parameters.addParameter(STR16("shinta"), STR16("..."), 0, 1, ParameterInfo::kCanAutomate, ORANGE_SAMPLE_PLUGIN_CONTROLLER_PARAM1_TAG);
 	}
 
 	result = kResultTrue;
