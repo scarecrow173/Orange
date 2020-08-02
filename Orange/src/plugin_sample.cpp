@@ -1,7 +1,10 @@
 ﻿#include "plugin_sample.h"
+#include "sineGenerator.h"
 
 using namespace Steinberg;
 using namespace Steinberg::Vst;
+using namespace Orange::Plugin;
+
 
 //==================================================
 // Effect
@@ -23,7 +26,6 @@ tresult PLUGIN_API SamplePluginEffect::initialize(FUnknown* context)
 	{
 		addAudioInput(STR16("AudioInput"), SpeakerArr::kStereo);
 		addAudioOutput(STR16("AudioOutput"), SpeakerArr::kStereo);
-
 	}
 
 
@@ -68,8 +70,11 @@ tresult PLUGIN_API SamplePluginEffect::process(Steinberg::Vst::ProcessData& data
 				{
 					switch (tag)
 					{
-					case ORANGE_SAMPLE_PLUGIN_CONTROLLER_PARAM1_TAG:
-						volume = value;
+					case ORANGE_SAMPLE_PLUGIN_CONTROLLER_SAMPLEFREQ_TAG:
+						sampleFreq = value;
+						break;
+					case ORANGE_SAMPLE_PLUGIN_CONTROLLER_FREQ_TAG:
+						freq = value;
 						break;
 					}
 				}
@@ -87,7 +92,19 @@ tresult PLUGIN_API SamplePluginEffect::process(Steinberg::Vst::ProcessData& data
 	Sample32* inR = data.inputs[0].channelBuffers32[1];
 	Sample32* outL = data.outputs[0].channelBuffers32[0];
 	Sample32* outR = data.outputs[0].channelBuffers32[1];
-	if (data.inputs[0].silenceFlags != 0)
+
+	if (data.inputs[0].silenceFlags == 0)
+	{
+		Orange::Oscillator::SineGenerator SineOsc(getSampleRate() * sampleFreq, getSampleRate() * 0.5 * freq, 32.0);
+		SineOsc.generate(data.outputs->numChannels, data.numSamples);
+		Orange::Common::AudioBuffer Buffer = SineOsc.getBuffer();
+		for (int32 i = 0; i < data.numSamples; i++)
+		{
+			outL[i] = Buffer.buffer[0][i];
+			outR[i] = Buffer.buffer[1][i];
+		}
+	}
+	else
 	{
 		for (int32 i = 0; i < data.numSamples; i++)
 		{
@@ -118,7 +135,8 @@ tresult PLUGIN_API SamplePluginController::initialize(FUnknown* context)
 	tresult result = EditController::initialize(context);
 	if (result == kResultTrue)
 	{
-		parameters.addParameter(STR16("shinta"), STR16("..."), 0, 1, ParameterInfo::kCanAutomate, ORANGE_SAMPLE_PLUGIN_CONTROLLER_PARAM1_TAG);
+		parameters.addParameter(STR16("SampleFreq"), STR16("..."), 0, 1, ParameterInfo::kCanAutomate, ORANGE_SAMPLE_PLUGIN_CONTROLLER_SAMPLEFREQ_TAG);
+		parameters.addParameter(STR16("Freq"), STR16("..."), 0, 1, ParameterInfo::kCanAutomate, ORANGE_SAMPLE_PLUGIN_CONTROLLER_FREQ_TAG);
 	}
 
 	result = kResultTrue;

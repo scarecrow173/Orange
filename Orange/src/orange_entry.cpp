@@ -4,6 +4,8 @@
 #include "plugin_info.h"
 #include "plugin_sample.h"
 
+using namespace Orange::Plugin;
+
 //==================================================
 // DLLファイルの初期化、終了処理関数
 //==================================================
