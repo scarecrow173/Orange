@@ -1,4 +1,4 @@
-﻿#include "plugin_sample.h"
+#include "plugin_sample.h"
 #include "sineGenerator.h"
 
 using namespace Steinberg;

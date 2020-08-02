@@ -1,4 +1,4 @@
-﻿#include "sineGenerator.h"
+#include "sineGenerator.h"
 #include <cmath>
 #include "base/source/fstring.h"
 
@@ -30,9 +30,20 @@ void SineGenerator::generate(int channels, int samples)
 	// Buffer.buffer[1]にsamples数のRチャンネルサンプルデータを入れる
 	// ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
 	//==================================================
-
-
-
+    const float deltatime = 1/sampleFrequency;
+    
+    if (time >= std::numeric_limits<float>::max()) {
+            time = 0.0;
+    }
+    
+    for(int i = 0; i < samples; ++i){
+        const float value = amplitude * sin(M_PI_MUL_2 * frequency * time + phase);
+        
+        Buffer.buffer[0][i] = value;
+        Buffer.buffer[1][i] = value;
+        
+        time += deltatime;
+    }
 	//==================================================
 	// ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
 	//==================================================
@@ -43,3 +54,4 @@ Common::AudioBuffer SineGenerator::getBuffer() const
 {
 	return Buffer;
 }
+

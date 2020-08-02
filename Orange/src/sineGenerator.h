@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "waveGenerator.h"
 namespace Orange
 {
@@ -12,6 +12,7 @@ namespace Orange
 			virtual Common::AudioBuffer getBuffer() const override;
 		private:
 			Common::AudioBuffer Buffer;
-		};
+            float time = 0;
+        };
 	}
 }

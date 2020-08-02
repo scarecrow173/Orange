@@ -32,9 +32,14 @@ namespace Orange
 					for (size_t iChannels = 0; iChannels < channels; iChannels++)
 					{
 						if (samples > 0)
+						{
 							buffer[iChannels] = new float[samples];
+							memset(buffer[iChannels], 0, (size_t)samples);
+						}
 						else
+						{
 							buffer[iChannels] = nullptr;
+						}
 					}
 				}
 			}
