@@ -4,11 +4,21 @@ if(SMTG_ADD_VSTGUI)
 		src/plugin_sample.h
 		src/plugin_sample.cpp
 		src/orange_entry.cpp
+		src/audioBuffer.h
 		src/waveGenerator.h
 		src/waveGenerator.cpp
 		src/sineGenerator.h
 		src/sineGenerator.cpp
-		src/audioBuffer.h
+		src/triangleGenerator.h
+		src/triangleGenerator.cpp
+		src/squareGenerator.h
+		src/squareGenerator.cpp
+		src/sawtoothGenerator.h
+		src/sawtoothGenerator.cpp
+		src/whiteNoiseGenerator.h
+		src/whiteNoiseGenerator.cpp
+		src/pinkNoiseGenerator.h
+		src/pinkNoiseGenerator.cpp
 	)
 
 	set(target orange)
