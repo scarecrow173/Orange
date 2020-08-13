@@ -92,10 +92,20 @@ namespace Orange
 				return *this;
 			}
 
+			inline void operator++(int n)
+			{
+				forwardSampleTime();
+			}
+
 			inline AudioTime& operator--()
 			{
 				backwardSampleTime();
 				return *this;
+			}
+
+			inline void operator--(int n)
+			{
+				backwardSampleTime();
 			}
 
 			inline AudioTime& operator+(const double other)
@@ -123,6 +133,34 @@ namespace Orange
 			{
 				AudioTime result(sampleRate);
 				result -= other.elapsedTime;
+				return result;
+			}
+
+			inline AudioTime& operator*(const double other)
+			{
+				AudioTime result(sampleRate);
+				result *= other;
+				return result;
+			}
+
+			inline AudioTime& operator*(const AudioTime& other)
+			{
+				AudioTime result(sampleRate);
+				result *= other.elapsedTime;
+				return result;
+			}
+
+			inline AudioTime& operator/(const double other)
+			{
+				AudioTime result(sampleRate);
+				result /= other;
+				return result;
+			}
+
+			inline AudioTime& operator/(const AudioTime& other)
+			{
+				AudioTime result(sampleRate);
+				result /= other.elapsedTime;
 				return result;
 			}
 
@@ -156,6 +194,35 @@ namespace Orange
 				return *this;
 			}
 
+			inline AudioTime& operator*=(const double other)
+			{
+				elapsedTime *= other;
+				if (elapsedTime >= std::numeric_limits<double>::max() || elapsedTime < 0.0) {
+					elapsedTime = 0.0;
+				}
+				return *this;
+			}
+
+			inline AudioTime& operator*=(const AudioTime& other)
+			{
+				*this += other.elapsedTime;
+				return *this;
+			}
+
+			inline AudioTime& operator/=(const double other)
+			{
+				if (other == 0.0)
+					return *this;
+				elapsedTime /= other;
+				return *this;
+			}
+
+			inline AudioTime& operator/=(const AudioTime& other)
+			{
+				*this -= other.elapsedTime;
+				return *this;
+			}
+
 			inline bool operator<(const double other)
 			{
 				return elapsedTime < other;
@@ -180,6 +247,7 @@ namespace Orange
 			{
 				return elapsedTime > other;
 			}
+
 			inline bool operator>(const AudioTime& other)
 			{
 				return *this > other.elapsedTime;
@@ -189,6 +257,7 @@ namespace Orange
 			{
 				return elapsedTime >= other;
 			}
+
 			inline bool operator>=(const AudioTime& other)
 			{
 				return *this >= other.elapsedTime;
@@ -198,6 +267,7 @@ namespace Orange
 			{
 				return fabs(elapsedTime - other) < DBL_EPSILON;
 			}
+
 			inline bool operator==(const AudioTime& other)
 			{
 				return *this == other.elapsedTime;
@@ -207,6 +277,7 @@ namespace Orange
 			{
 				return fabs(elapsedTime - other) >= DBL_EPSILON;
 			}
+
 			inline bool operator!=(const AudioTime& other)
 			{
 				return *this != other.elapsedTime;
@@ -218,5 +289,49 @@ namespace Orange
 			double sampleRate = 0.0;
 
 		};
+
+		//==================================================
+		// operators
+		//==================================================
+		inline double operator+(const double a, const AudioTime& b)
+		{
+			return a + b.getElapsedTime();
+		}
+
+		inline double operator-(const double a, const AudioTime& b)
+		{
+			return a - b.getElapsedTime();
+		}
+
+		inline double operator*(const double a, const AudioTime& b)
+		{
+			return a * b.getElapsedTime();
+		}
+
+		inline double operator/(const double a, const AudioTime& b)
+		{
+			return a / b.getElapsedTime();
+		}
+
+		inline float operator+(const float a, const AudioTime& b)
+		{
+			return a + (float)b.getElapsedTime();
+		}
+
+		inline float operator-(const float a, const AudioTime& b)
+		{
+			return a - (float)b.getElapsedTime();
+		}
+
+		inline float operator*(const float a, const AudioTime& b)
+		{
+			return a * (float)b.getElapsedTime();
+		}
+
+		inline float operator/(const float a, const AudioTime& b)
+		{
+			return a / (float)b.getElapsedTime();
+		}
+
 	}
 }
