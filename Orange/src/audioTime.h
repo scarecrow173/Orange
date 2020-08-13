@@ -108,56 +108,56 @@ namespace Orange
 				backwardSampleTime();
 			}
 
-			inline AudioTime& operator+(const double other)
+			inline AudioTime operator+(const double other)
 			{
 				AudioTime result(sampleRate);
 				result += other;
 				return result;
 			}
 
-			inline AudioTime& operator+(const AudioTime& other)
+			inline AudioTime operator+(const AudioTime& other)
 			{
 				AudioTime result(sampleRate);
 				result += other.elapsedTime;
 				return result;
 			}
 
-			inline AudioTime& operator-(const double other)
+			inline AudioTime operator-(const double other)
 			{
 				AudioTime result(sampleRate);
 				result -= other;
 				return result;
 			}
 
-			inline AudioTime& operator-(const AudioTime& other)
+			inline AudioTime operator-(const AudioTime& other)
 			{
 				AudioTime result(sampleRate);
 				result -= other.elapsedTime;
 				return result;
 			}
 
-			inline AudioTime& operator*(const double other)
+			inline AudioTime operator*(const double other)
 			{
 				AudioTime result(sampleRate);
 				result *= other;
 				return result;
 			}
 
-			inline AudioTime& operator*(const AudioTime& other)
+			inline AudioTime operator*(const AudioTime& other)
 			{
 				AudioTime result(sampleRate);
 				result *= other.elapsedTime;
 				return result;
 			}
 
-			inline AudioTime& operator/(const double other)
+			inline AudioTime operator/(const double other)
 			{
 				AudioTime result(sampleRate);
 				result /= other;
 				return result;
 			}
 
-			inline AudioTime& operator/(const AudioTime& other)
+			inline AudioTime operator/(const AudioTime& other)
 			{
 				AudioTime result(sampleRate);
 				result /= other.elapsedTime;
