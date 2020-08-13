@@ -6,7 +6,7 @@ namespace Orange
 {
 	namespace Common
 	{
-		struct AudioBuffer
+		template<typename T> struct AudioBuffer
 		{
 			AudioBuffer() : numChannels(0), numSamples(0), buffer(0)
 			{
@@ -28,12 +28,12 @@ namespace Orange
 					clear();
 					numChannels = channels;
 					numSamples = samples;
-					buffer = new float*[channels];
+					buffer = new T*[channels];
 					for (size_t iChannels = 0; iChannels < channels; iChannels++)
 					{
 						if (samples > 0)
 						{
-							buffer[iChannels] = new float[samples];
+							buffer[iChannels] = new T[samples];
 							memset(buffer[iChannels], 0, (size_t)samples);
 						}
 						else
@@ -61,9 +61,75 @@ namespace Orange
 				}
 			}
 
+			inline int getChannels() const
+			{
+				return numChannels;
+			}
+
+			inline int getSamples() const
+			{
+				return numChannels;
+			}
+			inline bool isValidIndex(const int idx)
+			{
+				return idx >= 0 && idx < numSamples;
+			}
+			//==================================================
+			// operators
+			//==================================================
+			inline T* operator[](short idx)
+			{
+				if (!isValidIndex(idx))
+				{
+					return nullptr;
+				}
+				return buffer[idx];
+			}
+			inline T* operator[](long idx)
+			{
+				if (!isValidIndex(idx))
+				{
+					return nullptr;
+				}
+				return buffer[idx];
+			}
+			inline T* operator[](int idx)
+			{
+				if (!isValidIndex(idx))
+				{
+					return nullptr;
+				}
+				return buffer[idx];
+			}
+			inline T* operator[](unsigned short idx)
+			{
+				if (!isValidIndex(idx))
+				{
+					return nullptr;
+				}
+				return buffer[idx];
+			}
+			inline T* operator[](unsigned long idx)
+			{
+				if (!isValidIndex(idx))
+				{
+					return nullptr;
+				}
+				return buffer[idx];
+			}
+			inline T* operator[](unsigned int idx)
+			{
+				if (!isValidIndex(idx))
+				{
+					return nullptr;
+				}
+				return buffer[idx];
+			}
+		private:
 			int numChannels = 0;
 			int numSamples = 0;
-			float** buffer;
+			T** buffer;
+
 		};
 	}
 }

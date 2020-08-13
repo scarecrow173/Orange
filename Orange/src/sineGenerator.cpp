@@ -1,5 +1,6 @@
 #include "sineGenerator.h"
 #include <cmath>
+#include <limits>
 #include "base/source/fstring.h"
 
 #ifndef M_PI
@@ -13,8 +14,8 @@ using namespace Orange;
 using namespace Orange::Oscillator;
 
 
-SineGenerator::SineGenerator(double inSampleFrequency, double inFrequency, double inAmplitude)
-	: WaveGenerator(inSampleFrequency, inFrequency, inAmplitude)
+SineGenerator::SineGenerator(double inSampleRate, double inFrequency, double inAmplitude)
+	: WaveGenerator(inSampleRate, inFrequency, inAmplitude)
 {
 
 }
@@ -30,7 +31,7 @@ void SineGenerator::generate(int channels, int samples)
 	// Buffer.buffer[1]にsamples数のRチャンネルサンプルデータを入れる
 	// ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
 	//==================================================
-    const float deltatime = 1/sampleFrequency;
+    const float deltatime = 1/sampleRate;
     
     if (time >= std::numeric_limits<float>::max()) {
             time = 0.0;
@@ -39,8 +40,8 @@ void SineGenerator::generate(int channels, int samples)
     for(int i = 0; i < samples; ++i){
         const float value = amplitude * sin(M_PI_MUL_2 * frequency * time + phase);
         
-        Buffer.buffer[0][i] = value;
-        Buffer.buffer[1][i] = value;
+        Buffer[0][i] = value;
+        Buffer[1][i] = value;
         
         time += deltatime;
     }
@@ -50,7 +51,7 @@ void SineGenerator::generate(int channels, int samples)
 
 }
 
-Common::AudioBuffer SineGenerator::getBuffer() const
+Common::AudioBuffer<float> SineGenerator::getBuffer() const
 {
 	return Buffer;
 }

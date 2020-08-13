@@ -3,8 +3,8 @@ using namespace Orange;
 using namespace Orange::Oscillator;
 
 
-SquareGenerator::SquareGenerator(double inSampleFrequency, double inFrequency, double inAmplitude)
-	: WaveGenerator(inSampleFrequency, inFrequency, inAmplitude)
+SquareGenerator::SquareGenerator(double inSampleRate, double inFrequency, double inAmplitude)
+	: WaveGenerator(inSampleRate, inFrequency, inAmplitude)
 {
 
 }
@@ -27,7 +27,7 @@ void SquareGenerator::generate(int channels, int samples)
 
 }
 
-Common::AudioBuffer SquareGenerator::getBuffer() const
+Common::AudioBuffer<float> SquareGenerator::getBuffer() const
 {
 	return Buffer;
 }

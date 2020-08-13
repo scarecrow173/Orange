@@ -3,8 +3,8 @@ using namespace Orange;
 using namespace Orange::Oscillator;
 
 
-PinkNoiseGenerator::PinkNoiseGenerator(double inSampleFrequency, double inFrequency, double inAmplitude)
-	: WaveGenerator(inSampleFrequency, inFrequency, inAmplitude)
+PinkNoiseGenerator::PinkNoiseGenerator(double inSampleRate, double inFrequency, double inAmplitude)
+	: WaveGenerator(inSampleRate, inFrequency, inAmplitude)
 {
 
 }
@@ -27,7 +27,7 @@ void PinkNoiseGenerator::generate(int channels, int samples)
 
 }
 
-Common::AudioBuffer PinkNoiseGenerator::getBuffer() const
+Common::AudioBuffer<float> PinkNoiseGenerator::getBuffer() const
 {
 	return Buffer;
 }

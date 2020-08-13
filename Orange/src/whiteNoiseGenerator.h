@@ -7,11 +7,11 @@ namespace Orange
 		class WhiteNoiseGenerator : public WaveGenerator
 		{
 		public:
-			WhiteNoiseGenerator(double inSampleFrequency, double inFrequency, double inAmplitude);
+			WhiteNoiseGenerator(double inSampleRate, double inFrequency, double inAmplitude);
 			virtual void generate(int channels, int samples) override;
-			virtual Common::AudioBuffer getBuffer() const override;
+			virtual Common::AudioBuffer<float> getBuffer() const override;
 		private:
-			Common::AudioBuffer Buffer;
+			Common::AudioBuffer<float> Buffer;
 		};
 	}
 }

@@ -3,8 +3,8 @@ using namespace Orange;
 using namespace Orange::Oscillator;
 
 
-TriangleGenerator::TriangleGenerator(double inSampleFrequency, double inFrequency, double inAmplitude)
-	: WaveGenerator(inSampleFrequency, inFrequency, inAmplitude)
+TriangleGenerator::TriangleGenerator(double inSampleRate, double inFrequency, double inAmplitude)
+	: WaveGenerator(inSampleRate, inFrequency, inAmplitude)
 {
 
 }
@@ -27,7 +27,7 @@ void TriangleGenerator::generate(int channels, int samples)
 
 }
 
-Common::AudioBuffer TriangleGenerator::getBuffer() const
+Common::AudioBuffer<float> TriangleGenerator::getBuffer() const
 {
 	return Buffer;
 }

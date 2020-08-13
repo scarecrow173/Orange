@@ -3,8 +3,8 @@ using namespace Orange;
 using namespace Orange::Oscillator;
 
 
-WhiteNoiseGenerator::WhiteNoiseGenerator(double inSampleFrequency, double inFrequency, double inAmplitude)
-	: WaveGenerator(inSampleFrequency, inFrequency, inAmplitude)
+WhiteNoiseGenerator::WhiteNoiseGenerator(double inSampleRate, double inFrequency, double inAmplitude)
+	: WaveGenerator(inSampleRate, inFrequency, inAmplitude)
 {
 
 }
@@ -27,7 +27,7 @@ void WhiteNoiseGenerator::generate(int channels, int samples)
 
 }
 
-Common::AudioBuffer WhiteNoiseGenerator::getBuffer() const
+Common::AudioBuffer<float> WhiteNoiseGenerator::getBuffer() const
 {
 	return Buffer;
 }

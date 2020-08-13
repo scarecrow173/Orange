@@ -6,8 +6,8 @@ using namespace Orange;
 using namespace Orange::Oscillator;
 
 
-SawtoothGenerator::SawtoothGenerator(double inSampleFrequency, double inFrequency, double inAmplitude)
-	: WaveGenerator(inSampleFrequency, inFrequency, inAmplitude)
+SawtoothGenerator::SawtoothGenerator(double inSampleRate, double inFrequency, double inAmplitude)
+	: WaveGenerator(inSampleRate, inFrequency, inAmplitude)
 {
 
 }
@@ -23,7 +23,7 @@ void SawtoothGenerator::generate(int channels, int samples)
 	// Buffer.buffer[1]にsamples数のRチャンネルサンプルデータを入れる
 	// ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
 	//==================================================
-    const double deltatime = 1/sampleFrequency;
+    const double deltatime = 1/sampleRate;
     const double fullPeriodTime = 1/frequency;
     
     if (time >= std::numeric_limits<float>::max()) {
@@ -32,12 +32,12 @@ void SawtoothGenerator::generate(int channels, int samples)
     
     for(int i = 0; i < samples; ++i){
         const double localtime = fmod(time,fullPeriodTime);
-        const float value = amplitude * ((localtime / fullPeriodTime) * 2 - 1.0);
+        const double value = amplitude * ((localtime / fullPeriodTime) * 2 - 1.0);
         
-        Buffer.buffer[0][i] = value;
-        Buffer.buffer[1][i] = value;
+        Buffer[0][i] = (float)value;
+        Buffer[1][i] = (float)value;
         
-        time += deltatime;
+        time += (float)deltatime;
     }
 	//==================================================
 	// ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
@@ -45,7 +45,7 @@ void SawtoothGenerator::generate(int channels, int samples)
 
 }
 
-Common::AudioBuffer SawtoothGenerator::getBuffer() const
+Common::AudioBuffer<float> SawtoothGenerator::getBuffer() const
 {
 	return Buffer;
 }

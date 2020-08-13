@@ -97,11 +97,11 @@ tresult PLUGIN_API SamplePluginEffect::process(Steinberg::Vst::ProcessData& data
 	{
 		Orange::Oscillator::SineGenerator SineOsc(getSampleRate() * sampleFreq, getSampleRate() * 0.5 * freq, 32.0);
 		SineOsc.generate(data.outputs->numChannels, data.numSamples);
-		Orange::Common::AudioBuffer Buffer = SineOsc.getBuffer();
+		Orange::Common::AudioBuffer<float> Buffer = SineOsc.getBuffer();
 		for (int32 i = 0; i < data.numSamples; i++)
 		{
-			outL[i] = Buffer.buffer[0][i];
-			outR[i] = Buffer.buffer[1][i];
+			outL[i] = Buffer[0][i];
+			outR[i] = Buffer[1][i];
 		}
 	}
 	else

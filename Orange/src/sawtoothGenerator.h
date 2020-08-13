@@ -7,11 +7,12 @@ namespace Orange
 		class SawtoothGenerator : public WaveGenerator
 		{
 		public:
-			SawtoothGenerator(double inSampleFrequency, double inFrequency, double inAmplitude);
+			SawtoothGenerator(double inSampleRate, double inFrequency, double inAmplitude);
 			virtual void generate(int channels, int samples) override;
-			virtual Common::AudioBuffer getBuffer() const override;
+			virtual Common::AudioBuffer<float> getBuffer() const override;
+
 		private:
-			Common::AudioBuffer Buffer;
+			Common::AudioBuffer<float> Buffer;
             float time = 0;
 		};
 	}
