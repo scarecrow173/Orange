@@ -5,6 +5,7 @@ if(SMTG_ADD_VSTGUI)
 		src/plugin_sample.cpp
 		src/orange_entry.cpp
 		src/audioBuffer.h
+		src/audioTime.h
 		src/waveGenerator.h
 		src/waveGenerator.cpp
 		src/sineGenerator.h
