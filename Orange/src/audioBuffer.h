@@ -20,7 +20,7 @@ namespace Orange
 				{
 					for (size_t iChannels = 0; iChannels < channels; iChannels++)
 					{
-						 memset(buffer[iChannels], 0, (size_t)samples);
+						 memset(buffer[iChannels], 0, (size_t)samples * sizeof(T));
 					}
 				}
 				else
@@ -34,7 +34,7 @@ namespace Orange
 						if (samples > 0)
 						{
 							buffer[iChannels] = new T[samples];
-							memset(buffer[iChannels], 0, (size_t)samples);
+							memset(buffer[iChannels], 0, (size_t)samples * sizeof(T));
 						}
 						else
 						{
