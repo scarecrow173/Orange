@@ -12,15 +12,36 @@ namespace Orange
 			{
 
 			}
+			AudioBuffer(const int inNumChannles, const int inNumSamples) : numChannels(inNumChannles), numSamples(inNumSamples), buffer(0)
+			{
+				allocate(inNumChannles, inNumSamples);
+			}
+			AudioBuffer(const AudioBuffer& other) : numChannels(other.numChannels), numSamples(other.numSamples), buffer(0)
+			{
+				allocate(numChannels, numSamples);
+				for (size_t iChannels = 0; iChannels < numChannels; iChannels++)
+				{
+					memcpy(buffer[iChannels], other.buffer[iChannels], (size_t)numSamples * sizeof(T));
+				}
 
+			}
 			inline void allocate(int channels, int samples)
 			{
 				if (channels == numChannels && channels > 0
-					&& samples == numSamples && samples > 0)
+					&& samples == numSamples && samples > 0
+					&& buffer != nullptr)
 				{
 					for (size_t iChannels = 0; iChannels < channels; iChannels++)
 					{
-						 memset(buffer[iChannels], 0, (size_t)samples * sizeof(T));
+						if (buffer[iChannels] == nullptr)
+						{
+							buffer[iChannels] = new T[samples];
+							memset(buffer[iChannels], 0, (size_t)samples * sizeof(T));
+						}
+						else
+						{
+							memset(buffer[iChannels], 0, (size_t)samples * sizeof(T));
+						}
 					}
 				}
 				else
