@@ -73,11 +73,11 @@ namespace Orange
 					{
 						if (numSamples > 0)
 						{
-							delete buffer[iChannels];
+							delete[] buffer[iChannels];
 							buffer[iChannels] = nullptr;
 						}
 					}
-					delete buffer;
+					delete[] buffer;
 					buffer = nullptr;
 				}
 			}
