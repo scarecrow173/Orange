@@ -16,6 +16,7 @@ using namespace Orange::Oscillator;
 
 SineGenerator::SineGenerator(double inSampleRate, double inFrequency, double inAmplitude)
 	: WaveGenerator(inSampleRate, inFrequency, inAmplitude)
+    , time(inSampleRate)
 {
 
 }
@@ -31,12 +32,7 @@ void SineGenerator::generate(int channels, int samples)
 	// Buffer.buffer[1]にsamples数のRチャンネルサンプルデータを入れる
 	// ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
 	//==================================================
-    const float deltatime = 1/sampleRate;
-    
-    if (time >= std::numeric_limits<float>::max()) {
-            time = 0.0;
-    }
-    
+        
     for(int iSample = 0; iSample < samples; ++iSample){
         const float value = amplitude * sin(M_PI_MUL_2 * frequency * time + phase);
         
@@ -44,7 +40,7 @@ void SineGenerator::generate(int channels, int samples)
             Buffer[iCh][iSample] = value;
         }
         
-        time += deltatime;
+        time++;
     }
 	//==================================================
 	// ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
