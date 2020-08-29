@@ -37,11 +37,12 @@ void SineGenerator::generate(int channels, int samples)
             time = 0.0;
     }
     
-    for(int i = 0; i < samples; ++i){
+    for(int iSample = 0; iSample < samples; ++iSample){
         const float value = amplitude * sin(M_PI_MUL_2 * frequency * time + phase);
         
-        Buffer[0][i] = value;
-        Buffer[1][i] = value;
+        for(int iCh = 0; iCh < channels; ++iCh){
+            Buffer[iCh][iSample] = value;
+        }
         
         time += deltatime;
     }

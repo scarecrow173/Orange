@@ -30,12 +30,13 @@ void SawtoothGenerator::generate(int channels, int samples)
             time = 0.0;
     }
     
-    for(int i = 0; i < samples; ++i){
+    for(int iSample = 0; iSample < samples; ++iSample){
         const double localtime = fmod(time,fullPeriodTime);
         const double value = amplitude * ((localtime / fullPeriodTime) * 2 - 1.0);
         
-        Buffer[0][i] = (float)value;
-        Buffer[1][i] = (float)value;
+        for(int iCh = 0; iCh < channels; ++iCh){
+            Buffer[iCh][iSample] = (float)value;
+        }
         
         time += (float)deltatime;
     }
